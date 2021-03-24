@@ -3,7 +3,7 @@ import Foundation
 class Warrior: Character {
     init(name: String) {
         let weapon = Axe(name: "basic axe 🪓", damage: 40)
-        super.init(name: name, characterType: "Warrior 🪓", lifePoints: 150, weapon: weapon)
+        super.init(name: name, characterType: "Warrior 🪓", maxLife: 150, lifePoints: 150, weapon: weapon)
     }
     override func present() {
         print(" "

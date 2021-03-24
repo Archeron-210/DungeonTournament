@@ -31,14 +31,17 @@ class Player {
                 + "\n2. Warrior 🪓"
                 + "\n3. Magus 🔮"
                 + "\n4. Priest 🔱")
+            // on récupère le choix utilisateur :
                     if let choice = readLine() {
                         switch choice {
                             case "1":
                             print(" "
                                 + "\nA Hunter ! Good choice. Now, what will he be named ?")
+                                // on récupère le nom du personnage, on instancie ce personnage et on le stocke dans l'équipe du joueur :
                                 if let newCharacterName = readLine() {
                                 let newCharacter = Hunter(name: newCharacterName)
                                     team.append(newCharacter)
+                                    // on affiche un message de bienvenue, la présentation du personnage, puis on passe le statut du choix en "valide" :
                                     print("Welcome \(newCharacterName) !")
                                     newCharacter.present()
                                     isValidChoice = true
@@ -46,9 +49,11 @@ class Player {
                             case "2":
                             print(" "
                                 + "\nA Warrior ! Good choice. Now, what will he be named ?")
+                                // on récupère le nom du personnage, on instancie ce personnage et on le stocke dans l'équipe du joueur :
                                 if let newCharacterName = readLine() {
                                 let newCharacter = Warrior(name: newCharacterName)
                                     team.append(newCharacter)
+                                    // on affiche un message de bienvenue, la présentation du personnage, puis on passe le statut du choix en "valide" :
                                     print("Welcome \(newCharacterName) !")
                                     newCharacter.present()
                                     isValidChoice = true
@@ -56,9 +61,11 @@ class Player {
                             case "3":
                             print(" "
                             + "\nA Magus ! Good choice. Now, what will he be named ?")
+                                // on récupère le nom du personnage, on instancie ce personnage et on le stocke dans l'équipe du joueur :
                                 if let newCharacterName = readLine() {
                                 let newCharacter = Magus(name: newCharacterName)
                                     team.append(newCharacter)
+                                    // on affiche un message de bienvenue, la présentation du personnage, puis on passe le statut du choix en "valide" :
                                     print("Welcome \(newCharacterName) !")
                                     newCharacter.present()
                                     isValidChoice = true
@@ -66,14 +73,17 @@ class Player {
                             case "4":
                             print(" "
                                 + "\nA Priest ! Good choice. Now, what will he be named ?")
+                                // on récupère le nom du personnage, on instancie ce personnage et on le stocke dans l'équipe du joueur :
                                 if let newCharacterName = readLine() {
                                     let newCharacter = Priest(name: newCharacterName)
                                     team.append(newCharacter)
+                                    // on affiche un message de bienvenue, la présentation du personnage, puis on passe le statut du choix en "valide" :
                                     print("Welcome \(newCharacterName) !")
                                     newCharacter.present()
                                     isValidChoice = true
                                 }
                             default:
+                                // on affiche un message d'erreur si le joueur a entré une réponse invalide :
                             print("Sorry, didn't catch what you meant ! Please try again by typing 1, 2, 3 or 4.")
                         }
                     }
@@ -83,6 +93,7 @@ class Player {
     
     // la fonction qui permet d'afficher les personnages de l'équipe :
     func showTeam() {
+        print("Here is the team :")
         for character in team {
             print("\(character.name), \(character.characterType)")
         }

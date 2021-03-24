@@ -2,17 +2,17 @@ import Foundation
 
 class Priest: Character {
 
-    // le compteur de heal effectué :
+    // le compteur de soins effectués :
     var healDone = 0
     init(name: String) {
         let weapon = Scepter(name: "basic scepter 🔱", damage: 15)
-        super.init(name: name, characterType: "Priest 🔱", lifePoints: 150, weapon: weapon)
+        super.init(name: name, characterType: "Priest 🔱", maxLife: 150, lifePoints: 150, weapon: weapon)
     }
-    // fonction de présentation du Prêtre :
+    // fonction réécrite de présentation du Prêtre :
     override func present() {
         print("He is a \(characterType) with \(lifePoints) life points, he has a \(weapon.name) and does \(weapon.damage) healing points.")
     }
-    // fonction qui présente le nouveau sceptre équipé par le Prêtre en cas de coffre aléatoire apparu :
+    // fonction réécrite qui présente le nouveau sceptre équipé par le Prêtre en cas de coffre aléatoire apparu :
     override func presentNewWeapon() {
         print("\(name) has now a \(weapon.name), that does \(weapon.damage) healing points.")
     }
@@ -28,14 +28,14 @@ class Priest: Character {
         print("Life points : \(lifePoints)"
                 + "Healing points : \(weapon.damage)"
                 + "Healing done : \(damageDone)"
-                + "Damage received : \(damageReceived)")
+                + "Damage received : \(damageReceived)"
+                + "Heal received : \(healReceived)")
     }
-    // fonction qui affiche les actions réalisables par le Prêtre :
+    // fonction réécrite qui affiche les actions réalisables par le Prêtre :
     override func characterMenu() {
             print("What do you want to do with your \(characterType) ?"
             + "\n1. Heal 🧪"
-            + "\n2. See stats 📜"
-            + "\n3. Go back ↩️")
+            + "\n2. See stats 📜")
     }
    
 
