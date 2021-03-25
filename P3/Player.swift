@@ -20,76 +20,60 @@ class Player {
         self.playerName = playerName
     }
     
+    
     // la fonction qui permet de construire son équipe :
     func buildTeam() {
         // création d'une variable booléenne qui permet de boucler sur le choix utilisateur, pour que le menu des choix s'affiche tant que l'utilisateur n'a pas entré de choix valide :
         var isValidChoice = false
         while !isValidChoice {
             print(" "
-                + "\n\(playerName), choose a character :"
-                + "\n1. Hunter 🏹"
-                + "\n2. Warrior 🪓"
-                + "\n3. Magus 🔮"
-                + "\n4. Priest 🔱")
+                    + "\n\(playerName), choose a character :"
+                    + "\n1. Hunter 🏹"
+                    + "\n2. Warrior 🪓"
+                    + "\n3. Magus 🔮"
+                    + "\n4. Priest 🔱")
             // on récupère le choix utilisateur :
-                    if let choice = readLine() {
-                        switch choice {
-                            case "1":
-                            print(" "
-                                + "\nA Hunter ! Good choice. Now, what will he be named ?")
-                                // on récupère le nom du personnage, on instancie ce personnage et on le stocke dans l'équipe du joueur :
-                                if let newCharacterName = readLine() {
-                                let newCharacter = Hunter(name: newCharacterName)
-                                    team.append(newCharacter)
-                                    // on affiche un message de bienvenue, la présentation du personnage, puis on passe le statut du choix en "valide" :
-                                    print("Welcome \(newCharacterName) !")
-                                    newCharacter.present()
-                                    isValidChoice = true
-                                }
-                            case "2":
-                            print(" "
-                                + "\nA Warrior ! Good choice. Now, what will he be named ?")
-                                // on récupère le nom du personnage, on instancie ce personnage et on le stocke dans l'équipe du joueur :
-                                if let newCharacterName = readLine() {
-                                let newCharacter = Warrior(name: newCharacterName)
-                                    team.append(newCharacter)
-                                    // on affiche un message de bienvenue, la présentation du personnage, puis on passe le statut du choix en "valide" :
-                                    print("Welcome \(newCharacterName) !")
-                                    newCharacter.present()
-                                    isValidChoice = true
-                                }
-                            case "3":
-                            print(" "
-                            + "\nA Magus ! Good choice. Now, what will he be named ?")
-                                // on récupère le nom du personnage, on instancie ce personnage et on le stocke dans l'équipe du joueur :
-                                if let newCharacterName = readLine() {
-                                let newCharacter = Magus(name: newCharacterName)
-                                    team.append(newCharacter)
-                                    // on affiche un message de bienvenue, la présentation du personnage, puis on passe le statut du choix en "valide" :
-                                    print("Welcome \(newCharacterName) !")
-                                    newCharacter.present()
-                                    isValidChoice = true
-                                }
-                            case "4":
-                            print(" "
-                                + "\nA Priest ! Good choice. Now, what will he be named ?")
-                                // on récupère le nom du personnage, on instancie ce personnage et on le stocke dans l'équipe du joueur :
-                                if let newCharacterName = readLine() {
-                                    let newCharacter = Priest(name: newCharacterName)
-                                    team.append(newCharacter)
-                                    // on affiche un message de bienvenue, la présentation du personnage, puis on passe le statut du choix en "valide" :
-                                    print("Welcome \(newCharacterName) !")
-                                    newCharacter.present()
-                                    isValidChoice = true
-                                }
-                            default:
-                                // on affiche un message d'erreur si le joueur a entré une réponse invalide :
-                            print("Sorry, didn't catch what you meant ! Please try again by typing 1, 2, 3 or 4.")
-                        }
-                    }
+            if let choice = readLine() {
+                let newTeamMember: Character?
+                switch choice {
+                    case "1":
+                        newTeamMember = Hunter(name: askName())
+                        isValidChoice = true
+                    case "2":
+                        newTeamMember = Warrior(name: askName())
+                        isValidChoice = true
+                    case "3":
+                        newTeamMember = Magus(name: askName())
+                        isValidChoice = true
+                    case "4":
+                        newTeamMember = Priest(name: askName())
+                        isValidChoice = true
+                    default:
+                        // on affiche un message d'erreur si le joueur a entré une réponse invalide :
+                        print("Sorry, didn't catch what you meant ! Please try again by typing 1, 2, 3 or 4.")
+                        newTeamMember = nil
+                }
+                if let newCharacter = newTeamMember {
+                    team.append(newCharacter)
+                    newCharacter.present()
                 }
             }
-        
+        }
+    }
+    
+    func askName() -> String {
+        print("\nGood choice. Now, what will he be named ?")
+        while true {
+            if let newCharacterName = readLine() {
+                if !isNameAlreadyTaken(newName: newCharacterName) {
+                    charactersName.append(newCharacterName)
+                    print("Welcome \(newCharacterName) !")
+                    return newCharacterName
+                }
+            }
+        }
+    }
+    
     
     // la fonction qui permet d'afficher les personnages de l'équipe :
     func showTeam() {
@@ -98,28 +82,49 @@ class Player {
             print("\(character.name), \(character.characterType)")
         }
     }
-    // la fonction qui affiche le nom des personnages de l'équipe pour sélectionner l'attaquant dans les phases de combat :
+    // la fonction qui affiche le nom des personnages de l'équipe pour sélectionner le personnage attaquant dans les phases de combat :
     func selectCharacter() {
-       print(" "
-        + "\n\(playerName), select a character :"
-        + "\n1. \(team[0].name)"
-        + "\n2. \(team[1].name)"
-        + "\n3. \(team[2].name)")
+        // variable qui contient un index, ce qui va permettre d'afficher un numéro devant le choix du joueur pour qu'il puisse faire sa sélection parmis les choix proposés :
+        var index = 0
+        print("  "
+                + "\n\(playerName), select a character :")
+        // boucle for qui va permettre pour chaque personnage d'incrémenter son index, de vérifier s'il est bien vivant, si c'est le cas d'afficher simplement son nom, sinon la mention "DEAD" à la suite :
+        for character in team {
+            index += 1
+            if character.isAlive == true {
+                print("\(index). \(character.name)")
+            } else {
+                print("\(index). \(character.name) (DEAD ☠️)")
+            }
+        }
     }
     // la fonction qui affiche le nom des personnages et leur type de l'équipe adverse pour sélectionner l'attaqué dans les phases de combat :
     func selectOpponent() {
-        print(" "
-                + "\nWho do you want your character to fight ?"
-                + "\n1.\(team[0].name) (\(team[0].characterType))"
-                + "\n2.\(team[1].name) (\(team[1].characterType))"
-                + "\n3.\(team[2].name) (\(team[2].characterType))")
+        var index = 0
+        print("  "
+                + "\nWho do you want your character to fight ?")
+        for character in team {
+            index += 1
+            if character.isAlive == true {
+                print("\(index). \(character.name) (\(character.characterType))")
+            } else {
+                print("\(index). \(character.name) (\(character.characterType)) (DEAD ☠️)")
+            }
+        }
     }
-    // la fonction qui affiche le nom des personnages et leur type de l'équipe pour sélectionner celui qui reçoit le soin du Priest dans les phases de combat :
+    
+    // la fonction qui affiche le nom des personnages de l'équipe et leur type  pour sélectionner celui qui reçoit les soins du Prêtre dans les phases de combat :
     func selectAlly() {
-       print(" "
-                + "\nWho do you want your Priest to heal ?"
-                + "\n1.\(team[0].name) (\(team[0].characterType))"
-                + "\n2.\(team[1].name) (\(team[1].characterType))"
-                + "\n3.\(team[2].name) (\(team[2].characterType))")
+        var index = 0
+        print(" "
+                + "\nWho do you want your Priest to heal ?")
+        for character in team {
+            index += 1
+            if character.isAlive == true {
+                print("\(index). \(character.name) (\(character.characterType))")
+            } else {
+                print("\(index). \(character.name) (\(character.characterType)) (DEAD ☠️)")
+            }
+        }
     }
 }

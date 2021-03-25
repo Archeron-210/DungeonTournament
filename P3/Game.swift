@@ -1,5 +1,15 @@
 import Foundation
 
+func isNameAlreadyTaken(newName: String) -> Bool {
+    for name in charactersName {
+        if newName == name {
+            print("Sorry, this name's already taken, please choose another one.")
+            return true
+        }
+    }
+    return false
+}
+
 
 // la fonction qui récupère la réponse utilisateur, créé un joueur avec le nom récupéré, puis le stocke dans un tableau myPlayers, et recommence pour un deuxième joueur en vérifiant que les noms sont bien différents :
 func playersNames() {
@@ -88,11 +98,11 @@ func startGame() {
             // boucle des combats qui permet de les lancer tant que les joueurs ont dans leur équipe des personnages toujours en vie autre que des Prêtres, et qui change le tour des joueurs, suivant lequel vient de terminer son action :
             while myPlayers[0].isADamageDealerAlive && myPlayers[1].isADamageDealerAlive {
                 if currentPlayer.playerName == myPlayers[0].playerName {
-                    playerTurn(currentPlayer: myPlayers[0], nextPlayer: myPlayers[1])
+                    fightTurn(currentPlayer: myPlayers[0], nextPlayer: myPlayers[1])
                     currentPlayer = myPlayers[1]
                     turnCount += 1
                 } else {
-                    playerTurn(currentPlayer: myPlayers[1], nextPlayer: myPlayers[0])
+                    fightTurn(currentPlayer: myPlayers[1], nextPlayer: myPlayers[0])
                     currentPlayer = myPlayers[0]
                     turnCount += 1 
                 }
@@ -109,7 +119,7 @@ func startGame() {
 }
 
 // fonction des combats qui prends en paramètre le joueur courant et le joueur suivant, afin de déterminer l'attaquant et l'attaqué, et qui permet de choisir un personnage dans l'équipe pour réaliser des actions :
-func playerTurn(currentPlayer: Player, nextPlayer: Player) {
+func fightTurn(currentPlayer: Player, nextPlayer: Player) {
     currentPlayer.selectCharacter()
     // la variable de type Bool qui permet de vérifier si l'utilisateur a fait un choix valide :
     var isValidChoice = false
@@ -119,13 +129,13 @@ func playerTurn(currentPlayer: Player, nextPlayer: Player) {
         if let choice = readLine() {
             switch choice {
                 case "1":
-                    playerCharacterAction(currentPlayer: currentPlayer, nextPlayer: nextPlayer, character: currentPlayer.team[0])
+                    CharacterAction(currentPlayer: currentPlayer, nextPlayer: nextPlayer, character: currentPlayer.team[0])
                     isValidChoice = true
                 case "2":
-                    playerCharacterAction(currentPlayer: currentPlayer, nextPlayer: nextPlayer, character: currentPlayer.team[1])
+                    CharacterAction(currentPlayer: currentPlayer, nextPlayer: nextPlayer, character: currentPlayer.team[1])
                     isValidChoice = true
                 case "3":
-                    playerCharacterAction(currentPlayer: currentPlayer, nextPlayer: nextPlayer, character: currentPlayer.team[2])
+                    CharacterAction(currentPlayer: currentPlayer, nextPlayer: nextPlayer, character: currentPlayer.team[2])
                     isValidChoice = true
                 default:
                     // on affiche un message d'erreur si le joueur a entré une réponse invalide :
@@ -135,9 +145,9 @@ func playerTurn(currentPlayer: Player, nextPlayer: Player) {
     }
 }
 
-// fonction qui prend en paramètre le joueur courant, le joueur suivant, et le personnage du joueur courrant, afin de réaliser les actions de combat :
-func playerCharacterAction(currentPlayer: Player, nextPlayer: Player, character: Character) {
-    // la fonction qui fait apparaitre aléatoirement le coffre :
+// fonction qui prend en paramètre le joueur courant, le joueur suivant, et le personnage du joueur courant, afin de réaliser les actions de combat :
+func CharacterAction(currentPlayer: Player, nextPlayer: Player, character: Character) {
+    // la fonction qui fait apparaitre aléatoirement le coffre bonus :
     randomChest(character: character)
     // la variable de type Bool qui permet de vérifier si l'utilisateur à fait un choix valide :
     var isValidChoice = false
@@ -175,19 +185,29 @@ func HealerAction(currentPlayer: Player, priest: Priest) -> Bool {
     currentPlayer.selectAlly()
     // on récupère le choix utilisateur :
     if let choice = readLine() {
+        // on créé une constante ally qui va stocker le personnage à soigner choisi par l'utilisateur :
+        let ally: Character
         switch choice {
+        // on attribue à ally la valeur correspondante au personnage soigné dans chaque cas :
             case "1":
-                print(priest.attack(otherCharacter: currentPlayer.team[0]))
-                return true
+                ally = currentPlayer.team[0]
             case "2":
-                print(priest.attack(otherCharacter: currentPlayer.team[1]))
-                return true
+                ally = currentPlayer.team[1]
             case "3":
-                print(priest.attack(otherCharacter: currentPlayer.team[2]))
-                return true
+                ally = currentPlayer.team[2]
             default:
                 // on affiche un message d'erreur si le joueur a entré une réponse invalide :
                 print("Sorry, didn't catch what you meant ! Please try again by typing 1, 2 or 3.")
+                return false
+        }
+        // on vérifie que le personnage à soigner est bien en vie, puis on le soigne :
+        if ally.isAlive == true {
+            print(priest.attack(otherCharacter: ally))
+            return true
+        } else {
+            // le message d'erreur si le personnage à soigner choisi est mort, et le renvoie de false pour reprendre la sélection :
+          print("Sorry, this ally is dead, try again by choosing another ally.")
+            return false
         }
     }
     return false
@@ -202,19 +222,30 @@ func DamageDealerAction(nextPlayer: Player, character: Character) -> Bool {
     nextPlayer.selectOpponent()
     // on récupère le choix utilisateur :
     if let choice = readLine() {
+        // on créé une constante opponent qui va stocker le personnage attaqué choisi par l'utilisateur :
+        let opponent: Character
         switch choice {
             case "1":
-                print(character.attack(otherCharacter: nextPlayer.team[0]))
-                return true
+                // on attribue à opponent la valeur correspondante au personnage attaqué dans chaque cas :
+                opponent = nextPlayer.team[0]
             case "2":
-                print(character.attack(otherCharacter: nextPlayer.team[1]))
-                return true
+                opponent = nextPlayer.team[1]
             case "3":
-                print(character.attack(otherCharacter: nextPlayer.team[2]))
-                return true
+                opponent = nextPlayer.team[3]
             default:
                 // on affiche un message d'erreur si le joueur a entré une réponse invalide :
                 print("Sorry, didn't catch what you meant ! Please try again by typing 1, 2 or 3.")
+                // on renvoie le choix comme étant invalide pour reprendre la sélection :
+                return false
+        }
+        // on vérifie que le personnage attaqué est bien en vie, puis on l'attaque :
+        if opponent.isAlive == true {
+            print(character.attack(otherCharacter: opponent))
+            return true
+        } else {
+            // le message d'erreur si l'attaqué choisi est mort, et le renvoie de false pour reprendre la sélection :
+          print("Sorry, this opponent is dead, try again by choosing another opponent.")
+            return false
         }
     }
     return false
