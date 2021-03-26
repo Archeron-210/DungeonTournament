@@ -1,5 +1,5 @@
 import Foundation
-
+// fonction qui permet de contrôler que le nom choisi pour le personnage n'a pas déja été choisi pour un autre :
 func isNameAlreadyTaken(newName: String) -> Bool {
     for name in charactersName {
         if newName == name {
@@ -72,25 +72,20 @@ func startGame() {
     if let choice = readLine() {
         switch choice {
         case "1":
-            print(" "
-                + "\nLet's begin ! 🤼‍♂️")
+            print("\n Let's begin ! 🤼‍♂️")
             // on instancie les joueurs en récupérant leur nom et on les affiche quand c'est fait :
             playersNames()
             showPlayers()
-            print(" "
-                + "\nNow, each player will build a three character team.")
+            print("\n Now, each player will build a three character team.")
             // la boucle qui permet, pour chaque joueur, de créer son équipe et de l'afficher une fois complète :
             for player in myPlayers {
                 for _ in 1...3 {
                     player.buildTeam()
                 }
-                print(" "
-                    + "\n\(player.playerName)'s team is complete !")
+                print("\n \(player.playerName)'s team is complete !")
                 player.showTeam()
             }
-            print("\n "
-                + "Ready ? Now let the fights begin ! ⚔️"
-                + "\n ")
+            print("\n Ready ? Now let the fights begin ! ⚔️")
             // la variable qui contient le joueur courant :
             var currentPlayer: Player = myPlayers[0]
             // la variable du compteur de tours :
@@ -107,9 +102,9 @@ func startGame() {
                     turnCount += 1 
                 }
             }
-            print("Game over ! Now that the fights have come to an end, it's time to announce the winner :")
+            print("\n Game over ! Now that the fights have come to an end, it's time to announce the winner :")
         case "2":
-            print("Come back soon ! 👋")
+            print("\n Come back soon ! 👋")
             exit(0)
         default:
             // on affiche un message d'erreur si le joueur a entré une réponse invalide :

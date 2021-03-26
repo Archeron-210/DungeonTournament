@@ -9,3 +9,6 @@ var charactersName = [String]()
 while true {
     startGame()
 }
+
+
+

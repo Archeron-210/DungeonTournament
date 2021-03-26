@@ -2,10 +2,11 @@
 import Foundation
 
 class Chest {
-// fonction qui doit renvoyer une arme correspondante au personnage qui la reçoit :
+// fonction qui doit renvoyer une arme correspondante au personnage qui la reçoit : pour chaque cas, on instancie deux armes correspondantes, puis on choisi aléatoirement une des deux armes grâce à .randomElement(), on stocke le résultat dans une contante et on renvoie ce résultat :
     func openChest(character: Character) -> Weapon {
         switch character {
         case is Warrior:
+            // le tableau qui contient les armes instanciées :
             let warriorWeapon = [Axe(name: "inferior axe 🪓", damage: 35), Axe(name: "superior axe 🪓", damage: 45)]
             if let warriorWeaponDropped = warriorWeapon.randomElement() {
             return warriorWeaponDropped

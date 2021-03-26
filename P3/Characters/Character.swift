@@ -5,6 +5,11 @@ import Foundation
 class Character {
     let characterType: String
     let name: String
+    var weapon: Weapon
+    // les compteurs de dommages effectués, reçus, et de soins reçus :
+    var damageDone = 0
+    var damageReceived = 0
+    var healReceived = 0
     let maxLife: Int
     // on observe la propriété stockée lifePoints : grâce à la méthode didSet, on vérifie que les points de vie ne dépassent jamais les points de vie max, ni ne descendent en dessous de 0 :
     var lifePoints: Int {
@@ -16,11 +21,6 @@ class Character {
             }
         }
     }
-    var weapon: Weapon
-    // les compteurs de dommages effectués, reçus, et de soins reçus :
-    var damageDone = 0
-    var damageReceived = 0
-    var healReceived = 0
     // propriété calculée qui permet de vérifier si le personnage est en vie grâce au true ou false renvoyé :
     var isAlive: Bool {
         return lifePoints > 0
@@ -33,23 +33,18 @@ class Character {
         self.lifePoints = lifePoints
         self.weapon = weapon
     }
+    // la fonction qui permet de présenter le personnage :
     func present() {
-        print("\(name) -> Life points : \(lifePoints), damage points : \(weapon.damage)")
+        print("\n\(name) is a \(characterType) with \(lifePoints) life points, his weapon is a \(weapon.name) and does \(weapon.damage) damage points.")
     }
-    // fonction qui permet d'afficher que le personnage est mort :
-    func isDead() {
-        if isAlive != true {
-            print("\(name) is dead.")
-        }
-    }
-    // fonction qui permet d'afficher les infos de la nouvelle arme équipée en cas de coffre aléatoire apparu :
+    
+    // fonction qui permet au personnage de présenter la nouvelle arme équipée en cas de coffre aléatoire apparu :
     func presentNewWeapon() {
         print("\(name) has now a \(weapon.name), that does \(weapon.damage) damage points.")
     }
     // fonction qui affiche les infos utiles pendant le combat :
     func fightStats(){
-       print(" "
-            + "\nLife points : \(lifePoints)"
+       print("\nLife points : \(lifePoints)"
             + "\nDamage points : \(weapon.damage)"
             + "\nDamage done : \(damageDone)"
             + "\nDamage received : \(damageReceived)"
@@ -60,14 +55,12 @@ class Character {
         otherCharacter.lifePoints -= self.weapon.damage
         self.damageDone += self.weapon.damage
         otherCharacter.damageReceived += self.weapon.damage
-        return "\(self.weapon.damage) damage done, well played ! Opponent \(otherCharacter.characterType) has now \(otherCharacter.lifePoints) life points."
+        return "\n \(self.weapon.damage) damage done, well played ! Opponent \(otherCharacter.characterType) has now \(otherCharacter.lifePoints) life points."
     }
-// fonction qui affiche le menu des actions possibles à réaliser avec son personnage :
+// fonction qui affiche le menu des actions possibles à réaliser avec le personnage :
     func characterMenu() {
-        print("  "
-        + "\nWhat do you want to do with your \(characterType) ?"
+        print("\n What do you want to do with your \(characterType) ?"
         + "\n1. Fight ⚔️"
         + "\n2. See stats 📜")
     }
-  
 }
