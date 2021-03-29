@@ -7,7 +7,7 @@
 
 import Foundation
 
-// création de la classe Weapon
+// La classe Weapon :
 class Weapon {
     enum WeaponType {
         case bow
@@ -15,9 +15,9 @@ class Weapon {
         case orb
         case scepter
     }
-    var name: String
-    var damage: Int
-    var type: WeaponType
+    let name: String
+    let damage: Int
+    let type: WeaponType
 
     init(name: String, damage: Int, type: WeaponType) {
         self.name = name

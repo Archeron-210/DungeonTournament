@@ -1,14 +1,11 @@
 
 import Foundation
-
-// le tableau qui contient les joueurs :
-var myPlayers = [Player]()
-var charactersName = [String]()
+// la partie, une instance de Game :
+let game = Game()
 
 // la boucle du jeu :
 while true {
-    startGame()
+    game.start()
 }
-
 
 

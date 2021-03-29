@@ -109,10 +109,10 @@
 			children = (
 				204FDA922600FD1900C30DC5 /* Characters */,
 				204FDA9D2600FD6F00C30DC5 /* Weapons */,
-				204FDA782600C54D00C30DC5 /* Chest.swift */,
-				20F31D0B25F10D4E007C3CBF /* main.swift */,
-				20F31D1325F12833007C3CBF /* Game.swift */,
 				20D522D42608AC5C00B04511 /* Player.swift */,
+				204FDA782600C54D00C30DC5 /* Chest.swift */,
+				20F31D1325F12833007C3CBF /* Game.swift */,
+				20F31D0B25F10D4E007C3CBF /* main.swift */,
 			);
 			path = P3;
 			sourceTree = "<group>";

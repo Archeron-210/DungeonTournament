@@ -10,7 +10,7 @@ class Character {
     var damageDone = 0
     var damageReceived = 0
     var healReceived = 0
-    let maxLife: Int
+    private let maxLife: Int
     // on observe la propriété stockée lifePoints : grâce à la méthode didSet, on vérifie que les points de vie ne dépassent jamais les points de vie max, ni ne descendent en dessous de 0 :
     var lifePoints: Int {
         didSet {
@@ -44,24 +44,24 @@ class Character {
     }
     // fonction qui affiche les infos utiles pendant le combat :
     func fightStats(){
-       print("\n\(name) (\(characterType)) ---> "
-            + "\nCurrent life points : \(lifePoints) (started with \(maxLife) life points)"
-            + "\nDamage points : \(weapon.damage)"
-            + "\nDamage done : \(damageDone) points"
-            + "\nDamage received : \(damageReceived) points"
-            + "\nHeal received : \(healReceived) points")
+        print("\n\(name) (\(characterType)) ---> "
+                + "\nCurrent life points : \(lifePoints)"
+                + "\nDamage points : \(weapon.damage)"
+                + "\nDamage done : \(damageDone) points"
+                + "\nDamage received : \(damageReceived) points"
+                + "\nHeal received : \(healReceived) points")
     }
-// fonction qui retire les points d'attaque de l'attaquant aux points de vie de l'attaqué et incrémente les compteurs de dommages reçus et effectués :
+    // fonction qui retire les points d'attaque de l'attaquant aux points de vie de l'attaqué et incrémente les compteurs de dommages reçus et effectués :
     func attack(otherCharacter: Character) -> String {
         otherCharacter.lifePoints -= self.weapon.damage
         self.damageDone += self.weapon.damage
         otherCharacter.damageReceived += self.weapon.damage
         return "\n \(self.weapon.damage) damage done, well played ! Opponent \(otherCharacter.characterType) has now \(otherCharacter.lifePoints) life points."
     }
-// fonction qui affiche le menu des actions possibles à réaliser avec le personnage :
+    // fonction qui affiche le menu des actions possibles à réaliser avec le personnage :
     func characterMenu() {
         print("\n What do you want to do with your \(characterType) ?"
-        + "\n1. Fight ⚔️"
-        + "\n2. See stats 📜")
+                + "\n1. Fight ⚔️"
+                + "\n2. See stats 📜")
     }
 }

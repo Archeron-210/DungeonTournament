@@ -1,4 +1,5 @@
 import Foundation
+
 // la classe Hunter qui hérite de Character :
 class Hunter: Character {
     init(name: String) {

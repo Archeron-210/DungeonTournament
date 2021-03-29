@@ -1,11 +1,13 @@
 
 import Foundation
 
-// définition de la classe Player avec une propriété playerName et son initialiseur, ainsi que les fonctions buildteam(), showTeam(), selectCharacter(), selectOpponent() et selectAlly() :
+// La classe Player, avec une propriété playerName et son initialiseur, ainsi que les fonctions buildteam(), showTeam(), selectCharacter(), selectOpponent() et selectAlly() :
 class Player {
     let playerName: String
     // le tableau qui contient les personnages du joueur :
     var team = [Character]()
+    // le compteur de personnage en vie :
+    var aliveCharacterCount = 0
     // propriété calculée qui permet de contrôler grâce à une boucle sur tous les personnages de l'équipe qu'il y a toujours des personnages vivants pouvant infliger des dégats :
     var isADamageDealerAlive: Bool {
         for character in team {
@@ -19,7 +21,13 @@ class Player {
     init(playerName: String) {
         self.playerName = playerName
     }
-    
+    func characterCount() {
+        for character in team {
+            if character.isAlive {
+                aliveCharacterCount += 1
+            }
+        }
+    }
     
     // la fonction qui permet de construire son équipe :
     func buildTeam() {
@@ -37,22 +45,22 @@ class Player {
                 let newTeamMember: Character?
                 switch choice {
                 // pour chaque cas, on attribue le personnage choisi par le joueur à newTeamMember, et on passe le choix en valide pour sortir de la boucle :
-                    case "1":
-                        newTeamMember = Hunter(name: askName())
-                        isValidChoice = true
-                    case "2":
-                        newTeamMember = Warrior(name: askName())
-                        isValidChoice = true
-                    case "3":
-                        newTeamMember = Magus(name: askName())
-                        isValidChoice = true
-                    case "4":
-                        newTeamMember = Priest(name: askName())
-                        isValidChoice = true
-                    default:
-                        // on affiche un message d'erreur si le joueur a entré une réponse invalide :
-                        print("Sorry, didn't catch what you meant ! Please try again by typing 1, 2, 3 or 4.")
-                        newTeamMember = nil
+                case "1":
+                    newTeamMember = Hunter(name: askName())
+                    isValidChoice = true
+                case "2":
+                    newTeamMember = Warrior(name: askName())
+                    isValidChoice = true
+                case "3":
+                    newTeamMember = Magus(name: askName())
+                    isValidChoice = true
+                case "4":
+                    newTeamMember = Priest(name: askName())
+                    isValidChoice = true
+                default:
+                    // on affiche un message d'erreur si le joueur a entré une réponse invalide :
+                    print("Sorry, didn't catch what you meant ! Please try again by typing 1, 2, 3 or 4.")
+                    newTeamMember = nil
                 }
                 // si les instructions se sont bien executées, on instancie un nouveau personnage et on l'ajoute à l'équipe du joueur, puis on affiche sa présentation :
                 if let newCharacter = newTeamMember {
@@ -62,24 +70,6 @@ class Player {
             }
         }
     }
-    
-    // fonction qui va permettre de récupérer le nom du personnage :
-    func askName() -> String {
-        print("\n Good choice. Now, what will he be named ?")
-        // on fait une boucle tant que le joueur n'a pas entré de nom valide :
-        while true {
-            if let newCharacterName = readLine() {
-                // on vérifie que le nom est disponible, si c'est le cas on l'ajoute au tableau de noms :
-                if !Game.isNameAlreadyTaken(newName: newCharacterName) {
-                    charactersName.append(newCharacterName)
-                    print("\n Welcome \(newCharacterName) !")
-                    // on sort de la boucle grâce au return une fois qu'un nom valide a bien été choisi :
-                    return newCharacterName
-                }
-            }
-        }
-    }
-    
     
     // la fonction qui permet d'afficher les personnages de l'équipe :
     func showTeam() {
@@ -93,7 +83,7 @@ class Player {
         let totalDamageDone = team[0].damageDone + team[1].damageDone + team[2].damageDone
         let totalDamageReceived = team[0].damageReceived + team[1].damageReceived + team[2].damageReceived
         print("\nTotal damage done : \(totalDamageDone) points"
-            + "\nTotal damage received : \(totalDamageReceived) points")
+                + "\nTotal damage received : \(totalDamageReceived) points")
     }
     
     // la fonction qui affiche le nom des personnages de l'équipe pour sélectionner le personnage attaquant dans les phases de combat :
@@ -139,13 +129,21 @@ class Player {
         }
     }
     
-    var aliveCharacterCount = 0
-    
-    func characterCount() {
-        for character in team {
-            if character.isAlive {
-                aliveCharacterCount += 1
+    // fonction qui va permettre de récupérer le nom du personnage :
+    private func askName() -> String {
+        print("\n Good choice. Now, what will he be named ?")
+        // on fait une boucle tant que le joueur n'a pas entré de nom valide :
+        while true {
+            if let newCharacterName = readLine() {
+                // on vérifie que le nom est disponible, si c'est le cas on l'ajoute au tableau de noms :
+                if !game.isNameAlreadyTaken(newName: newCharacterName) {
+                    game.registerName(name: newCharacterName)
+                    print("\n Welcome \(newCharacterName) !")
+                    // on sort de la boucle grâce au return une fois qu'un nom valide a bien été choisi :
+                    return newCharacterName
+                }
             }
         }
     }
+    
 }

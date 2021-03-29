@@ -1,4 +1,5 @@
 import Foundation
+
 // la classe Magus qui hérite de Character :
 class Magus: Character {
     init(name: String) {
