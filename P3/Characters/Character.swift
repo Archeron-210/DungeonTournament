@@ -35,7 +35,7 @@ class Character {
     }
     // la fonction qui permet de présenter le personnage :
     func present() {
-        print("\n\(name) is a \(characterType) with \(lifePoints) life points, his weapon is a \(weapon.name) and does \(weapon.damage) damage points.")
+        print("\nHe is a \(characterType) with \(lifePoints) life points, his weapon is a \(weapon.name) and does \(weapon.damage) damage points.")
     }
     
     // fonction qui permet au personnage de présenter la nouvelle arme équipée en cas de coffre aléatoire apparu :

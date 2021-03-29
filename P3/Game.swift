@@ -1,4 +1,6 @@
 import Foundation
+
+
 // fonction qui permet de contrôler que le nom choisi pour le personnage n'a pas déja été choisi pour un autre :
 func isNameAlreadyTaken(newName: String) -> Bool {
     for name in charactersName {
@@ -65,12 +67,12 @@ func finalMessage() {
 
 func finalStats(winner: Player, loser: Player) {
     print("\nCongratulations \(winner.playerName), you have won this tournament 🏆 ! Let's take a look at how it went :"
-    + "\nNumber of turns :\(turnCount)")
+    + "\nNumber of turns : \(turnCount)")
     for character in winner.team {
         character.fightStats()
     }
     winner.totalTeamStats()
-    print("/n/nAs for you, \(loser.playerName) :")
+    print("/nAs for you, \(loser.playerName) :")
     for character in loser.team {
         character.fightStats()
     }
@@ -117,7 +119,7 @@ func startGame() {
                 }
             }
             print("\n🛎 END OF THE FIGHTS, DROP YOUR WEAPONS ! 🛎")
-            if myPlayers[0].characterCount() > myPlayers[1].characterCount() {
+            if myPlayers[0].aliveCharacterCount > myPlayers[1].aliveCharacterCount {
                 finalStats(winner: myPlayers[0], loser: myPlayers[1])
             } else {
                 finalStats(winner: myPlayers[1], loser: myPlayers[0])
@@ -246,7 +248,7 @@ func DamageDealerAction(nextPlayer: Player, character: Character) -> Bool {
             case "2":
                 opponent = nextPlayer.team[1]
             case "3":
-                opponent = nextPlayer.team[3]
+                opponent = nextPlayer.team[2]
             default:
                 // on affiche un message d'erreur si le joueur a entré une réponse invalide :
                 print("Sorry, didn't catch what you meant ! Please try again by typing 1, 2 or 3.")
