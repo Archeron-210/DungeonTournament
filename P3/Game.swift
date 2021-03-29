@@ -13,27 +13,23 @@ func isNameAlreadyTaken(newName: String) -> Bool {
 
 // la fonction qui récupère la réponse utilisateur, créé un joueur avec le nom récupéré, puis le stocke dans un tableau myPlayers, et recommence pour un deuxième joueur en vérifiant que les noms sont bien différents :
 func playersNames() {
-    print(" "
-        + "\nPlayer one, please enter your name :")
+    print("\nPlayer one, please enter your name :")
     if let playerOneName = readLine() {
         let firstPlayer = Player(playerName: playerOneName)
         myPlayers.append(firstPlayer)
-    print(" "
-        + "\nHi \(playerOneName) !")
+    print("\nHi \(playerOneName) !")
     }
     // la boucle qui permet au second joueur de choisir à nouveau un nom si celui choisi en premier lieux est déjà pris :
     while myPlayers.count < 2 {
-        print(" "
-            + "\nPlayer two, please enter your name :")
+        print("\nPlayer two, please enter your name :")
         if let playerTwoName = readLine() {
             if playerTwoName != myPlayers[0].playerName {
             let secondPlayer = Player(playerName: playerTwoName)
             myPlayers.append(secondPlayer)
-        print(" "
-            + "Hi \(playerTwoName) !")
+        print("\nHi \(playerTwoName) !")
             } else {
                 // on affiche un message d'erreur si le joueur a entré une réponse invalide :
-                print("Sorry, this name is already taken")
+                print("Sorry, this name is already taken, please choose another one :")
             }
         }
     }
@@ -41,8 +37,7 @@ func playersNames() {
 
 // création d'une fonction qui permet d'afficher les noms des joueurs contenus dans le tableau myPlayers :
 func showPlayers() {
-    print(" "
-        + "\nIn this game the players are :")
+    print("\nIn this game the players are :")
     for player in myPlayers {
     print(player.playerName)
     }
@@ -59,6 +54,27 @@ func randomChest(character: Character) {
             character.weapon = foundChest.openChest(character: character)
             character.presentNewWeapon()
         }
+}
+// la variable du compteur de tours :
+var turnCount = 0
+
+func finalMessage() {
+    print("\nCongratulations to the both of you, it was a pretty fair game. Thanks for playing, come back soon ! 👋")
+    exit(0)
+}
+
+func finalStats(winner: Player, loser: Player) {
+    print("\nCongratulations \(winner.playerName), you have won this tournament 🏆 ! Let's take a look at how it went :"
+    + "\nNumber of turns :\(turnCount)")
+    for character in winner.team {
+        character.fightStats()
+    }
+    winner.totalTeamStats()
+    print("/n/nAs for you, \(loser.playerName) :")
+    for character in loser.team {
+        character.fightStats()
+    }
+    loser.totalTeamStats()
 }
 
 // création de la fonction qui lance le jeu et récupère le choix utilisateur :
@@ -88,8 +104,6 @@ func startGame() {
             print("\n Ready ? Now let the fights begin ! ⚔️")
             // la variable qui contient le joueur courant :
             var currentPlayer: Player = myPlayers[0]
-            // la variable du compteur de tours :
-            var turnCount = 0
             // boucle des combats qui permet de les lancer tant que les joueurs ont dans leur équipe des personnages toujours en vie autre que des Prêtres, et qui change le tour des joueurs, suivant lequel vient de terminer son action :
             while myPlayers[0].isADamageDealerAlive && myPlayers[1].isADamageDealerAlive {
                 if currentPlayer.playerName == myPlayers[0].playerName {
@@ -102,7 +116,13 @@ func startGame() {
                     turnCount += 1 
                 }
             }
-            print("\n Game over ! Now that the fights have come to an end, it's time to announce the winner :")
+            print("\n🛎 END OF THE FIGHTS, DROP YOUR WEAPONS ! 🛎")
+            if myPlayers[0].characterCount() > myPlayers[1].characterCount() {
+                finalStats(winner: myPlayers[0], loser: myPlayers[1])
+            } else {
+                finalStats(winner: myPlayers[1], loser: myPlayers[0])
+            }
+            finalMessage()
         case "2":
             print("\n Come back soon ! 👋")
             exit(0)

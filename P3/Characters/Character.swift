@@ -44,11 +44,12 @@ class Character {
     }
     // fonction qui affiche les infos utiles pendant le combat :
     func fightStats(){
-       print("\nLife points : \(lifePoints)"
+       print("\n\(name) (\(characterType)) ---> "
+            + "\nCurrent life points : \(lifePoints) (started with \(maxLife) life points)"
             + "\nDamage points : \(weapon.damage)"
-            + "\nDamage done : \(damageDone)"
-            + "\nDamage received : \(damageReceived)"
-            + "\nHeal received : \(healReceived)")
+            + "\nDamage done : \(damageDone) points"
+            + "\nDamage received : \(damageReceived) points"
+            + "\nHeal received : \(healReceived) points")
     }
 // fonction qui retire les points d'attaque de l'attaquant aux points de vie de l'attaqué et incrémente les compteurs de dommages reçus et effectués :
     func attack(otherCharacter: Character) -> String {

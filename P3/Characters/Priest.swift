@@ -21,11 +21,12 @@ class Priest: Character {
     }
     // fonction réécrite qui présente les infos utiles du Prêtre pendant les combats :
     override func fightStats() {
-        print("Life points : \(lifePoints)"
+        print("\n\(name) (\(characterType)) ---> "
+                + "\nCurrent life points : \(lifePoints) (started with \(maxLife) life points)"
                 + "\nHealing points : \(weapon.damage)"
-                + "\nHealing done : \(damageDone)"
-                + "\nDamage received : \(damageReceived)"
-                + "\nHeal received : \(healReceived)")
+                + "\nHealing done : \(damageDone) points"
+                + "\nDamage received : \(damageReceived) points"
+                + "\nHeal received : \(healReceived) points")
     }
     // fonction réécrite qui affiche les actions réalisables par le Prêtre :
     override func characterMenu() {

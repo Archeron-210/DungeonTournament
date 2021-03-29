@@ -69,7 +69,7 @@ class Player {
         // on fait une boucle tant que le joueur n'a pas entré de nom valide :
         while true {
             if let newCharacterName = readLine() {
-                // on vérifie que le nom est disponible, si c'est le cas on l'ajoute à notre tableau de noms :
+                // on vérifie que le nom est disponible, si c'est le cas on l'ajoute au tableau de noms :
                 if !isNameAlreadyTaken(newName: newCharacterName) {
                     charactersName.append(newCharacterName)
                     print("\n Welcome \(newCharacterName) !")
@@ -88,6 +88,14 @@ class Player {
             print("\(character.name), \(character.characterType)")
         }
     }
+    
+    func totalTeamStats() {
+        let totalDamageDone = team[0].damageDone + team[1].damageDone + team[2].damageDone
+        let totalDamageReceived = team[0].damageReceived + team[1].damageReceived + team[2].damageReceived
+        print("Total damage done : \(totalDamageDone) points"
+            + "Total damage received : \(totalDamageReceived) points")
+    }
+    
     // la fonction qui affiche le nom des personnages de l'équipe pour sélectionner le personnage attaquant dans les phases de combat :
     func selectCharacter() {
         // variable qui contient un index, ce qui va permettre d'afficher un numéro devant le choix du joueur pour qu'il puisse faire sa sélection parmis les choix proposés :
@@ -127,6 +135,15 @@ class Player {
                 print("\(index). \(character.name) (\(character.characterType))")
             } else {
                 print("\(index). \(character.name) (\(character.characterType)) (DEAD ☠️)")
+            }
+        }
+    }
+    
+    func characterCount() {
+        var aliveCharacterCount = 0
+        for character in team {
+            if character.isAlive {
+                aliveCharacterCount += 1
             }
         }
     }
