@@ -136,29 +136,43 @@ class Game {
         while !isValidChoice {
             // on récupère le choix utilisateur :
             if let choice = readLine() {
+                // on créé une constante character qui va stocker le personnage choisi, puis on change sa valeur pour chaque cas :
+                let character: Character?
                 switch choice {
                 case "1":
-                    CharacterAction(currentPlayer: currentPlayer, nextPlayer: nextPlayer, character: currentPlayer.team[0])
+                    character = currentPlayer.team[0]
                     isValidChoice = true
                 case "2":
-                    CharacterAction(currentPlayer: currentPlayer, nextPlayer: nextPlayer, character: currentPlayer.team[1])
+                    character = currentPlayer.team[1]
                     isValidChoice = true
                 case "3":
-                    CharacterAction(currentPlayer: currentPlayer, nextPlayer: nextPlayer, character: currentPlayer.team[2])
+                    character = currentPlayer.team[2]
                     isValidChoice = true
                 default:
                     // on affiche un message d'erreur si le joueur a entré une réponse invalide :
                     print("Sorry, didn't catch what you meant ! Please try again by typing 1, 2 or 3.")
+                    // dans ce cas, aucun personnage n'a été choisi :
+                    character = nil
+                }
+                // si un personnage a bien été choisi, on vérifie qu'il est en vie pour qu'il puisse effectuer son action :
+                if let characterPicked = character {
+                    if characterPicked.isAlive == true {
+                        characterAction(currentPlayer: currentPlayer, nextPlayer: nextPlayer, character: characterPicked)
+                        isValidChoice = true
+                    } else {
+                        // le message d'erreur si le personnage n'est pas en vie :
+                        print("Sorry, this character is currently dead, please choose another one.")
+                    }
                 }
             }
         }
     }
     
     // fonction qui prend en paramètre le joueur courant, le joueur suivant, et le personnage du joueur courant, afin de réaliser les actions de combat :
-    private func CharacterAction(currentPlayer: Player, nextPlayer: Player, character: Character) {
+    private func characterAction(currentPlayer: Player, nextPlayer: Player, character: Character) {
         // la fonction qui fait apparaitre aléatoirement le coffre bonus :
         randomChest(character: character)
-        // la variable de type Bool qui permet de vérifier si l'utilisateur à fait un choix valide :
+        // la variable de type Bool qui permet de vérifier si l'utilisateur a fait un choix valide :
         var isValidChoice = false
         // la boucle qui permet de boucler sur les actions possibles tant que l'utilisateur n'a pas fait de choix valide :
         while !isValidChoice {

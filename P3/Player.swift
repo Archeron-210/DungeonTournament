@@ -75,12 +75,22 @@ class Player {
             print("\(character.name), \(character.characterType)")
         }
     }
-    
+    // la fonction qui permet d'afficher les compteurs totaux de dégats et soin de l'équipe entière :
     func totalTeamStats() {
+        var totalHealDone = 0
+        // pour chaque personnage, on vérifie s'il s'agit d'un Prêtre, si c'est le cas on incrémente le compteur total de soin :
+        for character in team {
+            if let priest = character as? Priest {
+                totalHealDone += priest.healDone
+            }
+        }
+        let totalHealReceived = team[0].healReceived + team[1].healReceived + team[2].healReceived
         let totalDamageDone = team[0].damageDone + team[1].damageDone + team[2].damageDone
         let totalDamageReceived = team[0].damageReceived + team[1].damageReceived + team[2].damageReceived
         print("\nTotal damage done : \(totalDamageDone) points"
-                + "\nTotal damage received : \(totalDamageReceived) points")
+                + "\nTotal damage received : \(totalDamageReceived) points"
+                + "\nTotal heal done : \(totalHealDone) points"
+                + "\nTotal heal received : \(totalHealReceived) points")
     }
     
     // la fonction qui affiche le nom des personnages de l'équipe pour sélectionner le personnage attaquant dans les phases de combat :
