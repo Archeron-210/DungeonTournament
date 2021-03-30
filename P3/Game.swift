@@ -26,7 +26,7 @@ class Game {
                 // on instancie les joueurs en récupérant leur nom et on les affiche quand c'est fait :
                 playersNames()
                 showPlayers()
-                print("\n Now, each player will build a three character team.")
+                print("\n Now, each player will build a three characters team.")
                 // la boucle qui permet, pour chaque joueur, de créer son équipe et de l'afficher une fois complète :
                 for player in myPlayers {
                     for _ in 1...3 {
@@ -51,7 +51,7 @@ class Game {
                     }
                 }
                 print("\n🛎 END OF THE FIGHTS, DROP YOUR WEAPONS ! 🛎")
-                if myPlayers[0].aliveCharacterCount > myPlayers[1].aliveCharacterCount {
+                if myPlayers[0].isADamageDealerAlive == true {
                     finalStats(winner: myPlayers[0], loser: myPlayers[1])
                 } else {
                     finalStats(winner: myPlayers[1], loser: myPlayers[0])
@@ -264,11 +264,12 @@ class Game {
     private func finalStats(winner: Player, loser: Player) {
         print("\nCongratulations \(winner.playerName), you have won this tournament 🏆 ! Let's take a look at how it went :"
                 + "\nNumber of turns : \(turnCount)")
+        print("\nFor \(winner.playerName)'s team :")
         for character in winner.team {
             character.fightStats()
         }
         winner.totalTeamStats()
-        print("/nAs for you, \(loser.playerName) :")
+        print("\nAs for you, \(loser.playerName) :")
         for character in loser.team {
             character.fightStats()
         }

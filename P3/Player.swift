@@ -6,8 +6,6 @@ class Player {
     let playerName: String
     // le tableau qui contient les personnages du joueur :
     var team = [Character]()
-    // le compteur de personnage en vie :
-    var aliveCharacterCount = 0
     // propriété calculée qui permet de contrôler grâce à une boucle sur tous les personnages de l'équipe qu'il y a toujours des personnages vivants pouvant infliger des dégats :
     var isADamageDealerAlive: Bool {
         for character in team {
@@ -20,13 +18,6 @@ class Player {
     
     init(playerName: String) {
         self.playerName = playerName
-    }
-    func characterCount() {
-        for character in team {
-            if character.isAlive {
-                aliveCharacterCount += 1
-            }
-        }
     }
     
     // la fonction qui permet de construire son équipe :
@@ -55,8 +46,14 @@ class Player {
                     newTeamMember = Magus(name: askName())
                     isValidChoice = true
                 case "4":
-                    newTeamMember = Priest(name: askName())
-                    isValidChoice = true
+                    // on vérifie que l'équipe ne contient pas déjà 2 Prêtres :
+                    if numberOfPriest() >= 2 {
+                        print("Sorry, but you can't have a team of more than two Priest. Please choose another character.")
+                        newTeamMember = nil
+                    } else {
+                        newTeamMember = Priest(name: askName())
+                        isValidChoice = true
+                    }
                 default:
                     // on affiche un message d'erreur si le joueur a entré une réponse invalide :
                     print("Sorry, didn't catch what you meant ! Please try again by typing 1, 2, 3 or 4.")
@@ -144,6 +141,17 @@ class Player {
                 }
             }
         }
+    }
+    
+    // fonction qui permet de compter le nombre de Prêtres dans l'équipe :
+    private func numberOfPriest() -> Int {
+        var priestCount = 0
+        for character in team {
+            if character.characterType == "Priest 🔱" {
+                priestCount += 1
+            }
+        }
+        return priestCount
     }
     
 }
