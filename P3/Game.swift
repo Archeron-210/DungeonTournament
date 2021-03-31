@@ -141,13 +141,10 @@ class Game {
                 switch choice {
                 case "1":
                     character = currentPlayer.team[0]
-                    isValidChoice = true
                 case "2":
                     character = currentPlayer.team[1]
-                    isValidChoice = true
                 case "3":
                     character = currentPlayer.team[2]
-                    isValidChoice = true
                 default:
                     // on affiche un message d'erreur si le joueur a entré une réponse invalide :
                     print("Sorry, didn't catch what you meant ! Please try again by typing 1, 2 or 3.")
