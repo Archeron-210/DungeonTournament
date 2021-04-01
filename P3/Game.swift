@@ -94,13 +94,13 @@ class Game {
         while myPlayers.count < 2 {
             print("\nPlayer two, please enter your name :")
             if let playerTwoName = readLine() {
-                if playerTwoName != myPlayers[0].playerName {
+                if playerTwoName != myPlayers[0].playerName && !playerTwoName.isEmpty {
                     let secondPlayer = Player(playerName: playerTwoName)
                     myPlayers.append(secondPlayer)
                     print("\nHi \(playerTwoName) !")
                 } else {
                     // on affiche un message d'erreur si le joueur a entré une réponse invalide :
-                    print("Sorry, this name is already taken, please choose another one :")
+                    print("Sorry, your name should at least contain 1 character, or is currently already taken, please choose another one :")
                 }
             }
         }

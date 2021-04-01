@@ -56,7 +56,7 @@ class Character {
         otherCharacter.lifePoints -= self.weapon.damage
         self.damageDone += self.weapon.damage
         otherCharacter.damageReceived += self.weapon.damage
-        return "\n \(self.weapon.damage) damage done, well played ! Opponent \(otherCharacter.characterType) has now \(otherCharacter.lifePoints) life points."
+        return "\n \(self.weapon.damage) damage points done, well played ! Opponent \(otherCharacter.characterType) has now \(otherCharacter.lifePoints) life points."
     }
     // fonction qui affiche le menu des actions possibles à réaliser avec le personnage :
     func characterMenu() {

@@ -27,7 +27,7 @@ class Priest: Character {
         print("\n\(name) (\(characterType)) ---> "
                 + "\nCurrent life points : \(lifePoints)"
                 + "\nHealing points : \(weapon.damage)"
-                + "\nHealing done : \(damageDone) points"
+                + "\nHealing done : \(healDone) points"
                 + "\nDamage received : \(damageReceived) points"
                 + "\nHeal received : \(healReceived) points")
     }

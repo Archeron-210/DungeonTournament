@@ -72,7 +72,11 @@ class Player {
     func showTeam() {
         print("\n Here is the team :")
         for character in team {
-            print("\(character.name), \(character.characterType)")
+            if character.characterType != "Priest 🔱" {
+                print("\(character.name), \(character.characterType) -> life points : \(character.lifePoints), damage points : \(character.weapon.damage)")
+            } else {
+            print("\(character.name), \(character.characterType) -> life points : \(character.lifePoints), heal points : \(character.weapon.damage)")
+            }
         }
     }
     // la fonction qui permet d'afficher les compteurs totaux de dégats et soin de l'équipe entière :
@@ -102,7 +106,7 @@ class Player {
         for character in team {
             index += 1
             if character.isAlive == true {
-                print("\(index). \(character.name)")
+                print("\(index). \(character.name) (\(character.characterType), \(character.lifePoints) life points)")
             } else {
                 print("\(index). \(character.name) (DEAD ☠️)")
             }
@@ -115,7 +119,7 @@ class Player {
         for character in team {
             index += 1
             if character.isAlive == true {
-                print("\(index). \(character.name) (\(character.characterType))")
+                print("\(index). \(character.name) (\(character.characterType), \(character.lifePoints) life points)")
             } else {
                 print("\(index). \(character.name) (\(character.characterType)) (DEAD ☠️)")
             }
@@ -129,7 +133,7 @@ class Player {
         for character in team {
             index += 1
             if character.isAlive == true {
-                print("\(index). \(character.name) (\(character.characterType))")
+                print("\(index). \(character.name) (\(character.characterType), \(character.lifePoints) life points)")
             } else {
                 print("\(index). \(character.name) (\(character.characterType)) (DEAD ☠️)")
             }
