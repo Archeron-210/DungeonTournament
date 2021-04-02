@@ -1,7 +1,7 @@
 
 import Foundation
 
-// La classe Player, avec une propriété playerName et son initialiseur, ainsi que les fonctions buildteam(), showTeam(), selectCharacter(), selectOpponent() et selectAlly() :
+// La classe Player :
 class Player {
     let playerName: String
     // le tableau qui contient les personnages du joueur :

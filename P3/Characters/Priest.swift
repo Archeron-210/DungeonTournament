@@ -16,7 +16,7 @@ class Priest: Character {
         print("\(name) has now a \(weapon.name), that does \(weapon.damage) healing points.")
     }
     // fonction réécrite qui transforme l'attaque en soin, et qui incrémente les compteurs de soins reçus et donnés :
-    override func attack(otherCharacter: Character) -> String {
+    override func actionOn(otherCharacter: Character) -> String {
         otherCharacter.lifePoints += self.weapon.damage
         self.healDone += self.weapon.damage
         otherCharacter.healReceived += self.weapon.damage

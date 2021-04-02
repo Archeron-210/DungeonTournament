@@ -10,7 +10,6 @@ class Character {
     var damageDone = 0
     var damageReceived = 0
     var healReceived = 0
-    private let maxLife: Int
     // on observe la propriété stockée lifePoints : grâce à la méthode didSet, on vérifie que les points de vie ne dépassent jamais les points de vie max, ni ne descendent en dessous de 0 :
     var lifePoints: Int {
         didSet {
@@ -25,6 +24,7 @@ class Character {
     var isAlive: Bool {
         return lifePoints > 0
     }
+    private let maxLife: Int
     
     init(name: String, characterType: String, maxLife: Int, lifePoints: Int, weapon: Weapon){
         self.name = name
@@ -52,7 +52,7 @@ class Character {
                 + "\nHeal received : \(healReceived) points")
     }
     // fonction qui retire les points d'attaque de l'attaquant aux points de vie de l'attaqué et incrémente les compteurs de dommages reçus et effectués :
-    func attack(otherCharacter: Character) -> String {
+    func actionOn(otherCharacter: Character) -> String {
         otherCharacter.lifePoints -= self.weapon.damage
         self.damageDone += self.weapon.damage
         otherCharacter.damageReceived += self.weapon.damage

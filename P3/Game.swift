@@ -6,14 +6,6 @@ class Game {
     private var charactersName = [String]()
     // le compteur de tours :
     private var turnCount = 0
-    // le message de début de partie :
-    private func startMessage () {
-        print("Welcome in Dungeon Tournament ⚔️ ! It's a two players game where each player will choose a team of 3 characters, and have them fight until there's only one team standing."
-        + "\n  "
-        + "\nWhat do you want to do ?"
-        + "\n1. Start game ⚔️"
-        + "\n2. Quit game 🚪")
-    }
     
     // la fonction du jeu :
     func start() {
@@ -24,7 +16,7 @@ class Game {
             case "1":
                 print("\n Let's begin ! 🤼‍♂️")
                 // on instancie les joueurs en récupérant leur nom et on les affiche quand c'est fait :
-                playersNames()
+                getPlayersNames()
                 showPlayers()
                 print("\n Now, each player will build a three characters team.")
                 // la boucle qui permet, pour chaque joueur, de créer son équipe et de l'afficher une fois complète :
@@ -77,13 +69,23 @@ class Game {
         }
         return false
     }
-    // fonction qui permet d'ajouter un nom au tableau de noms, le tableau étant en privé :
+    
+    // fonction qui permet d'ajouter un nom au tableau de noms, le tableau étant privé :
     func registerName(name: String) {
         charactersName.append(name)
     }
+   
+    // le message de début de partie :
+    private func startMessage () {
+        print("Welcome in Dungeon Tournament ⚔️ ! It's a two players game where each player will choose a team of 3 characters, and have them fight until there's only one team standing."
+        + "\n  "
+        + "\nWhat do you want to do ?"
+        + "\n1. Start game ⚔️"
+        + "\n2. Quit game 🚪")
+    }
     
     // la fonction  qui récupère la réponse utilisateur, créé un joueur avec le nom récupéré, puis le stocke dans un tableau myPlayers, et recommence pour un deuxième joueur en vérifiant que les noms sont bien différents :
-    private func playersNames() {
+    private func getPlayersNames() {
         print("\nPlayer one, please enter your name :")
         if let playerOneName = readLine() {
             let firstPlayer = Player(playerName: playerOneName)
@@ -222,7 +224,7 @@ class Game {
             }
             // on vérifie que le personnage à soigner est bien en vie, puis on le soigne :
             if ally.isAlive == true {
-                print(priest.attack(otherCharacter: ally))
+                print(priest.actionOn(otherCharacter: ally))
                 return true
             } else {
                 // le message d'erreur si le personnage à soigner choisi est mort, et le renvoie de false pour reprendre la sélection :
@@ -261,7 +263,7 @@ class Game {
             }
             // on vérifie que le personnage attaqué est bien en vie, puis on l'attaque :
             if opponent.isAlive == true {
-                print(character.attack(otherCharacter: opponent))
+                print(character.actionOn(otherCharacter: opponent))
                 return true
             } else {
                 // le message d'erreur si l'attaqué choisi est mort, et le renvoie de false pour reprendre la sélection :
