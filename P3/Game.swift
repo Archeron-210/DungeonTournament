@@ -1,13 +1,18 @@
 import Foundation
 
 class Game {
-    // le tableau qui contient les joueurs, et celui qui contient les noms des personnages :
-    private var myPlayers = [Player]()
-    private var charactersName = [String]()
-    // le compteur de tours :
+
+    // MARK: - Properties
+
+    // players and character names arrays:
+    private var myPlayers: [Player] = []
+    private var charactersName: [String] = []
+    // battle round counter:
     private var turnCount = 0
-    
-    // la fonction du jeu :
+
+    // MARK: - Public
+
+    // game function:
     func start() {
         startMessage()
         // on récupère le choix utilisateur :
@@ -58,9 +63,19 @@ class Game {
             }
         }
     }
+
+    // MARK: - Private
+
+    private func startMessage() {
+        print("Welcome in Dungeon Tournament ⚔️ ! It's a two players game where each player will choose a team of 3 characters, and have them fight until there's only one team standing."
+        + "\n  "
+        + "\nWhat do you want to do ?"
+        + "\n1. Start game ⚔️"
+        + "\n2. Quit game 🚪")
+    }
     
-    // la fonction qui permet de contrôler que le nom choisi pour le personnage n'a pas déja été choisi pour un autre :
-    func isNameAlreadyTaken(newName: String) -> Bool {
+    // name check to avoid doubles:
+    private func isNameAlreadyTaken(newName: String) -> Bool {
         for name in charactersName {
             if newName == name {
                 print("Sorry, this name's already taken, please choose another one.")
@@ -70,18 +85,9 @@ class Game {
         return false
     }
     
-    // fonction qui permet d'ajouter un nom au tableau de noms, le tableau étant privé :
-    func registerName(name: String) {
+    // add a name to the characters names array:
+    private func registerName(name: String) {
         charactersName.append(name)
-    }
-   
-    // le message de début de partie :
-    private func startMessage () {
-        print("Welcome in Dungeon Tournament ⚔️ ! It's a two players game where each player will choose a team of 3 characters, and have them fight until there's only one team standing."
-        + "\n  "
-        + "\nWhat do you want to do ?"
-        + "\n1. Start game ⚔️"
-        + "\n2. Quit game 🚪")
     }
     
     // la fonction  qui récupère la réponse utilisateur, créé un joueur avec le nom récupéré, puis le stocke dans un tableau myPlayers, et recommence pour un deuxième joueur en vérifiant que les noms sont bien différents :
@@ -92,7 +98,7 @@ class Game {
             myPlayers.append(firstPlayer)
             print("\nHi \(playerOneName) !")
         }
-        // la boucle qui permet au second joueur de choisir à nouveau un nom si celui choisi en premier lieu est déjà pris :
+        // while loop that allows second player to pick another name if its first choise is already taken:
         while myPlayers.count < 2 {
             print("\nPlayer two, please enter your name :")
             if let playerTwoName = readLine() {
