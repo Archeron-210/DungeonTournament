@@ -7,17 +7,24 @@
 
 import Foundation
 
-// La classe Weapon :
 class Weapon {
+
+    // MARK: - Enum
+
     enum WeaponType {
         case bow
         case axe
         case orb
         case scepter
     }
+
+    // MARK: - Properties
+
     let name: String
     let damage: Int
     let type: WeaponType
+
+    // MARK: - Init
 
     init(name: String, damage: Int, type: WeaponType) {
         self.name = name
