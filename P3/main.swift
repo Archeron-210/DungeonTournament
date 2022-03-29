@@ -1,9 +1,10 @@
 
 import Foundation
-// la partie, une instance de Game :
+
+// instanciate a game:
 let game = Game()
 
-// la boucle du jeu :
+// game loop:
 while true {
     game.start()
 }
