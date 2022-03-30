@@ -8,7 +8,7 @@
 
 Two players are asked their name. Than, they will choose 3 characters each to compose their teams, name them, and fight in a turn-based combat system.
 
-<img src="Images/Players.png" width="60%" height="90"/> 
+<img src="Images/Players.png" width="60%" height="20%"/> 
 
 First one to eliminate all of the other team damage dealers wins.
 
@@ -17,16 +17,16 @@ First one to eliminate all of the other team damage dealers wins.
 Each player will choose 3 characters between 4 different classes :
 
 - **Hunter 🏹** *(damage dealer)*
-<img src="Images/Hunter.png" width="50%" height="90"/> 
+<img src="Images/Hunter.png" width="50%" height="20%"/> 
 
 - **Magus 🔮** *(damage dealer)*
-<img src="Images/Magus.png" width="50%" height="90"/> 
+<img src="Images/Magus.png" width="50%" height="20%"/> 
 
 - **Warrior 🪓** *(damage dealer)*
-<img src="Images/Warrior.png" width="50%" height="90"/>
+<img src="Images/Warrior.png" width="50%" height="20%"/>
 
 - **Priest 🔱** *(healer)*
-<img src="Images/Priest.png" width="50%" height="90"/>
+<img src="Images/Priest.png" width="50%" height="20%"/>
 
 ## Weapons
 
@@ -56,37 +56,37 @@ All characters start with their attributed basic weapon. This weapon could chang
 
 At the beginning of each round, a chest can randomly pop, granting the choosen character a new weapon based on its class, either better or worst than the one he had.
 
-<img src="Images/SuperiorChest.png" width="60%" height="90"/>
+<img src="Images/SuperiorChest.png" width="60%" height="20%"/>
  
-<img src="Images/InferiorChest.png" width="60%" height="90"/> 
+<img src="Images/InferiorChest.png" width="60%" height="20%"/> 
 
 ## Game
 
 After each players finished to build their team, the teams are displayed :
 
-<img src="Images/FirstTeam.png" width="60%" height="90"/> 
-<img src="Images/SecondTeam.png" width="60%" height="90"/>
+<img src="Images/FirstTeam.png" width="60%" height="20%"/> 
+<img src="Images/SecondTeam.png" width="60%" height="20%"/>
 
 Then, the first player choose a character, then has access to its character menu  (either see its stats, or fight) :
 
-<img src="Images/CharacterMenu.png" width="60%" height="90"/>
+<img src="Images/CharacterMenu.png" width="60%" height="20%"/>
 
 When fight is chosen, the player can choose which opponent to fight :
 
-<img src="Images/Damages.png" width="60%" height="90"/>
+<img src="Images/Damages.png" width="60%" height="20%"/>
 
 Then, second player choose which character he wants to play with :
 
-<img src="Images/SecondTeamChoose.png" width="60%" height="90"/>
+<img src="Images/SecondTeamChoose.png" width="60%" height="20%"/>
 
 If the character chosen by the player is a Priest, then the player will choose  between its own team members which one to heal :
 
-<img src="Images/Heal.png" width="60%" height="90"/>
+<img src="Images/Heal.png" width="60%" height="20%"/>
 
 And so on, until one team has no more damage dealer alive.
 Then, a message appears to announce the winner :
 
-<img src="Images/End.png" width="60%" height="90"/>
+<img src="Images/End.png" width="60%" height="20%"/>
 
 And the game stats for each players :
 
@@ -96,7 +96,7 @@ And the game stats for each players :
 
 Finally, a message appears and the program stops :
 
-<img src="Images/LastMessage.png" width="60%" height="90"/>
+<img src="Images/LastMessage.png" width="60%" height="20%"/>
 
 
 
