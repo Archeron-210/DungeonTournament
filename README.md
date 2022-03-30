@@ -2,7 +2,7 @@
 
 **Dungeon Tournament** is a little Xcode RPG type game, playable in the console.
 
-<img src="Images/Welcome.png" width="60%" height="30"/> 
+<img src="Images/Welcome.png" width="60%" height="70"/> 
 
 ## Rules
 
