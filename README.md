@@ -4,6 +4,11 @@
 
 <img src="Images/Welcome.png" width="60%" height="20%"/> 
 
+## Version
+
+Current version : V2.
+Supports macOS 11.1+. 
+
 ## Rules
 
 Two players are asked their name. Than, they will choose 3 characters each to compose their teams, name them, and fight in a turn-based combat system.
